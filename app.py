@@ -11,7 +11,11 @@ def app(report):
     if hasattr(module_obj, report):
         report_module = getattr(module_obj, report)
 
-        report_class = report_module(ConnectionFactory())
+        report_class = report_module()
+        try:
+            report_class.set_connections(ConnectionFactory())
+        except:
+            pass
         report_class.run()
         return
 
@@ -19,4 +23,4 @@ def app(report):
 
 
 if __name__ == '__main__':
-    app("test", False)
+    app()

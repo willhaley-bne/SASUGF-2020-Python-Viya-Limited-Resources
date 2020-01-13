@@ -1,10 +1,7 @@
 import swat
-from sasctl import Session
-from time import sleep
 
 
 class Viya(object):
-
     url = None
     user_name = None
     password = None
@@ -14,23 +11,30 @@ class Viya(object):
 class ViyaConnection(Viya):
 
     def __init__(self):
+
+        if self.url is None:
+            raise Exception('You need to provide the URL for your Viya application')
+        if self.port is None:
+            raise Exception('You need to provide the PORT for your Viya application')
+        if self.user_name is None:
+            raise Exception('You need to provide the Username for your Viya application')
+        if self.password is None:
+            raise Exception('You need to provide the Password for your Viay application')
+
         self.conn = swat.CAS(self.url, self.port, self.user_name, self.password)
 
     def get_server_status(self):
         return self.conn.serverstatus()
 
-    def get_data(self, library, table):
-        return self.conn.CASTable()
+    def get_cas_table(self, table_name, caslib_name):
+        return self.conn.CASTable(name=table_name, caslib=caslib_name)
 
-    def read_sql(self, sql, db_conn):
-        return self.conn.read_sql(sql, db_conn)
-
-    def request_get(self, url):
-        return self.ctl.get(url)
-
-    def request_post(self, url):
-        return self.ctl.post(url)
-
-    def drop_cas_table(self, output_table, output_lib):
-        table = self.conn.CASTable(name=output_table, caslib=output_lib)
+    def drop_cas_table(self, table_name, caslib_name):
+        table = self.conn.CASTable(name=table_name, caslib=caslib_name)
         table.dropTable()
+
+    def update_cas_table(self, records, table_name, caslib_name):
+        self.conn.CASTable(records,
+                           casout={'name': table_name,
+                                   'caslib': caslib_name,
+                                   'promote': True})

@@ -4,4 +4,4 @@ from .CASDecisionBase import CASDecisionBase
 
 
 class MarketingProducts(ReportBase):
-
+    pass

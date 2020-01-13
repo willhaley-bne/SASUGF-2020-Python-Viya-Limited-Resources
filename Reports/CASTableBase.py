@@ -1,5 +1,4 @@
 import pandas as pd
-import swat
 
 
 class CASTableBase(object):
@@ -9,27 +8,25 @@ class CASTableBase(object):
     cas_table_name = None
     caslib = None
 
-    def __init__(self, conn_db, conn_viya):
+    def __init__(self, conn_db=None, conn_viya=None):
         self.conn_db = conn_db
         self.conn_viya = conn_viya
+
+    def remove_from_cas(self):
+        try:
+            self.conn_viya.drop_cas_table(self.cas_table_name, self.caslib)
+        except:
+            pass
 
     def update_from_source(self):
         self.update_from_records(self.get_source_data())
 
     def update_from_records(self, records):
         self.remove_from_cas()
-        swat.cas.table.CASTable.from_records(self.conn_viya, records,
-                                             casout={'name': self.cas_table_name,
-                                                     'caslib': self.caslib,
-                                                     'promote': True})
-
-    def remove_from_cas(self):
-        try:
-            table = self.conn_viya.CASTable(name=self.cas_table_name, caslib=self.caslib)
-            table.dropTable()
-        except:
-            pass
+        self.conn_viya.update_cas_table(records, self.cas_table_name, self.caslib)
 
     def get_source_data(self):
         return pd.read_sql_query(self.source_sql, self.conn_db)
 
+    def get_from_cas(self):
+        return self.conn_viya.get_cas_table(self.cas_table_name, self.caslib)

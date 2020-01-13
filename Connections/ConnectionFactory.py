@@ -11,7 +11,6 @@ class ConnectionFactory(object):
 
         if hasattr(module_obj, class_string):
             class_obj = getattr(module_obj, class_string)
-
             return class_obj()
         else:
             raise Exception('CONNECTION: Requested Connection Type Not Found')

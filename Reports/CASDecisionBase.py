@@ -1,3 +1,6 @@
+import pandas as pd
+
+
 class CASDecisionBase(object):
     model_lib = None
     model_table_name = None
@@ -10,8 +13,8 @@ class CASDecisionBase(object):
     output_table_name = None
     output_caslib = None
 
-    def __init__(self, viya_connection):
-        self.viya = viya_connection
+    def __init__(self, conn_viya):
+        self.viya = conn_viya
         self.viya.loadactionset('ds2')
         self.viya.loadactionset('table')
 
@@ -20,7 +23,7 @@ class CASDecisionBase(object):
         self._run_model()
 
     def get_results(self):
-        return self.viya.CASTable(name=self.output_table_name, caslib=self.output_caslib)
+        return pd.DataFrame(self.viya.CASTable(name=self.output_table_name, caslib=self.output_caslib).to_records())
 
     # Drop existing tables
     def _clean_before_decision(self):
