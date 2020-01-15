@@ -20,10 +20,10 @@
 3. Update Code with your connection information
 
     ###### Connections/ViyaConnection.py  
-    `  url = None`  
-    `  user_name = None`  
-    `  password = None`  
-    `  port = None`
+    `url = None`  
+    `user_name = None`  
+    `password = None`  
+    `port = None`
     ###### Connections/Warehouse.py  
     `server = None`  
     `username = None`  
