@@ -39,6 +39,8 @@ class MarketingProductDecision(CASDecisionBase):
 
 class MarketingProductTracking(ReportBase):
 
+    base_table = 'MarketingProductTrackingData'
+
     def preprocess(self):
         selected_menu_items_decision = MarketingProductDecision(self.conn_viya)
         selected_menu_items_decision.exec()

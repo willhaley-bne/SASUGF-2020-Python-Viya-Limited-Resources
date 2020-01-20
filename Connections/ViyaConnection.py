@@ -34,7 +34,7 @@ class ViyaConnection(Viya):
         table.dropTable()
 
     def update_cas_table(self, records, table_name, caslib_name):
-        self.conn.CASTable(records,
+        swat.cas.table.CASTable.from_records(self.conn, records,
                            casout={'name': table_name,
                                    'caslib': caslib_name,
                                    'promote': True})

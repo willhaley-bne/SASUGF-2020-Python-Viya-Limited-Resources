@@ -3,7 +3,7 @@ from Connections.ConnectionFactory import ConnectionFactory
 
 
 @click.command()
-@click.option('--report', default="test", help="Selects the report or dataset to update")
+@click.option('--report', default="ExampleReport", help="Selects the report or dataset to update")
 def app(report):
 
     module_obj = __import__('Reports')

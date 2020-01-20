@@ -26,7 +26,7 @@ class CASTableBase(object):
         self.conn_viya.update_cas_table(records, self.cas_table_name, self.caslib)
 
     def get_source_data(self):
-        return pd.read_sql_query(self.source_sql, self.conn_db)
+        return pd.read_sql_query(self.source_sql, self.conn_db.conn)
 
     def get_from_cas(self):
         return self.conn_viya.get_cas_table(self.cas_table_name, self.caslib)

@@ -14,7 +14,7 @@ class CASDecisionBase(object):
     output_caslib = None
 
     def __init__(self, conn_viya):
-        self.viya = conn_viya
+        self.viya = conn_viya.conn
         self.viya.loadactionset('ds2')
         self.viya.loadactionset('table')
 

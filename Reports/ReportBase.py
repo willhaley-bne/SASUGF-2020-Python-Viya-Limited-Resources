@@ -15,12 +15,10 @@ class ReportBase(object):
         self.conn_factory = conn_factory
         self.conns = self.conn_factory.set_connection(
             self.conn_factory.TYPE_VIYA,
-            self.conn_factory.TYPE_WAREHOUSE,
-            self.conn_factory.TYPE_MYSQL
+            self.conn_factory.TYPE_WAREHOUSE
         )
-        self.conn_warehouse = self.conns[self.con_factory.TYPE_WAREHOUSE].conn
-        self.conn_viya = self.conns[self.con_factory.TYPE_VIYA].conn
-        self.conn_mysql = self.conns[self.con_factory.TYPE_MYSQL].conn
+        self.conn_warehouse = self.conns[self.conn_factory.TYPE_WAREHOUSE]
+        self.conn_viya = self.conns[self.conn_factory.TYPE_VIYA]
 
     def set_base(self):
         module_obj = __import__('Reports')
