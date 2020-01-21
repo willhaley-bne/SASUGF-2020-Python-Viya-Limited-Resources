@@ -3,7 +3,7 @@
 ### **Introduction:**
 
 ### **Getting Started:**
-##### This assumes you're comfortable with setting up python and connecting to CAS via swat. If you're a little unsure, I'd recommend looking at [Official SWAT Documenation](https://sassoftware.github.io/python-swat/)
+##### This assumes you're comfortable with setting up python and connecting to CAS via swat. If you're a little unsure, I'd recommend looking at the [Official SWAT Documenation](https://sassoftware.github.io/python-swat/)
 ##### I'm also assuming that you're connecting to a SQL Server DB.  You may have to create your own connection class tha generates the needed connection object. 
 
 1. Clone Repo
@@ -37,6 +37,11 @@
     `caslib = ''` 
 
 5. Make sure your have the CAS_CLIENT_SSL_CA_LIST environment variable set 
+
+6. Run the script  
+    `python app.py --report ExampleReport`
+
+You should now see the data in your CAS library.
 
 ### **Examples:**
 
