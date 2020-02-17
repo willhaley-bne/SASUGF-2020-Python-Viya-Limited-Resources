@@ -21,11 +21,18 @@ class ReportBase(object):
         self.conn_viya = self.conns[self.conn_factory.TYPE_VIYA]
 
     def set_base(self):
+        if isinstance(self.base_table, list) is False:
+            self.base_table = [self.base_table]
+
+        for base_table in self.base_table:
+            self.__set_base(base_table)
+
+    def __set_base(self, base_table):
         module_obj = __import__('Reports')
-        if hasattr(module_obj, self.base_table):
-            table = getattr(module_obj, self.base_table)
+        if hasattr(module_obj, base_table):
+            table = getattr(module_obj, base_table)
             table_class = table(conn_db=self.conn_warehouse, conn_viya=self.conn_viya)
-            self.base_data = table_class.get_source_data()
+            self.base_data[base_table] = table_class.get_source_data()
 
     def preprocess(self):
         pass
