@@ -1,6 +1,7 @@
 ## SAS User Global Forum 2020: Presentation:  - Using Python to Maximize Limited SAS® Viya® Resources 
 
 ### **Introduction:**
+The complete details about the presentation are located on the [repo's wiki](https://github.com/willhaley-bne/SASUGF-2020-Python-Viya-Limited-Resources/wiki).
 
 ### **Getting Started:**
 ##### This assumes you're comfortable with setting up python and connecting to CAS via swat. If you're a little unsure, I'd recommend looking at the [Official SWAT Documenation](https://sassoftware.github.io/python-swat/)
