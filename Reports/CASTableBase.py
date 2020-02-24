@@ -24,9 +24,7 @@ class CASTableBase(object):
         module_obj = __import__('Reports')
         if hasattr(module_obj, self.decision_source):
             decision_module = getattr(module_obj, self.decision_source)
-            self.decision = decision_module(self.conn_viya)
-            self.caslib = self.decision.output_caslib
-            self.cas_table_name = self.decision.output_table_name
+            self.decision = decision_module(self.conn_db, self.conn_viya)
 
     def remove_from_cas(self):
         try:
@@ -38,16 +36,19 @@ class CASTableBase(object):
         self.remove_from_cas()
         self.conn_viya.update_cas_table(records, self.cas_table_name, self.caslib)
 
+    def update_from_source(self):
+        self.update_from_records(self.get_source_data())
+
     def get_source_data(self):
 
-        if self.source_data:
+        if self.source_data is not None:
             return self.source_data
 
         self.pre_process_source_data()
 
         if self.decision_source:
             self.decision.exec()
-            self.source_data = self.get_from_cas(self.cas_table_name, self.caslib)
+            self.source_data = self.conn_viya.get_cas_table(self.cas_table_name, self.caslib)
         else:
             self.source_data = pd.read_sql_query(self.source_sql, self.conn_db.conn)
 
